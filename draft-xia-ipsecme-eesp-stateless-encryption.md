@@ -316,9 +316,11 @@ Correspondingly, the destination node is processed as follows:
 # Security Considerations
 
 - A highly secure control plane is required to ensure that the master keys managed by users/systems are not leaked or lost;
-- 
-The control channel establishment phase requires two-way authentication and authorization to ensure the integrity and confidentiality of the master key during the master key distribution phase. At the same time, it ensures that the group master key is only distributed to the corresponding group members;
-- The endpoint requires secure storage of the master key and data key locally.
+- The control channel establishment phase requires two-way authentication and authorization to ensure the integrity and confidentiality of the master key during the master key distribution phase. At the same time, it ensures that the group master key is only distributed to the corresponding group members;
+- The endpoint requires secure storage of the master key and data key locally;
+- The key derivation process must ensure that the data keys calculated by cryptographic engines on different entities are unique. This means that the input for key derivation must include a unique ID to prevent two cryptographic engines from using the same data key;
+- It is necessary to ensure that IVs  are not reused. Under the same data key, the construction of IVs must guarantee that they are not repeated;
+- The update cycle of the master key should be determined based on the actual number of derived data keys to be generated.
 
 
 
